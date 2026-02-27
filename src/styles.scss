@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+/* Inter fontunu Google Fonts'tan projeye dahil ediyoruz */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500; /* Çok ince (400) değil, çok kalın (700) da değil tam orta karar */
+  margin: 0;
+  -webkit-font-smoothing: antialiased; /* Yazıların ekranda daha pürüzsüz görünmesini sağlar */
+}
