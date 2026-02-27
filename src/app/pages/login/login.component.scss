@@ -1,0 +1,136 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7f6; /* Açık gri/mavi temiz bir arka plan */
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo-area {
+  text-align: center;
+  margin-bottom: 30px;
+
+  h2 {
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: 600; /* Sadece başlık bir tık daha belirgin olsun */
+    letter-spacing: -0.5px; /* Harfleri çok hafif birbirine yaklaştırarak modernleştirir */
+  }
+
+  p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 500;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; /* Padding'in genişliği bozmasını engeller */
+    font-size: 16px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #3498db; /* Tıklanınca mavi çerçeve */
+    }
+  }
+}
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* Form doluyken üzerine gelindiğinde */
+  &:hover:not(:disabled) {
+    background-color: #2980b9; 
+  }
+
+  /* Form boşken (pasif durumda) görünecek stil */
+  &:disabled {
+    background-color: #3498db; /* Orijinal canlı mavi rengi kalsın */
+    opacity: 0.5; /* Rengi değiştirmek yerine sadece %50 şeffaflaştırıyoruz */
+    cursor: not-allowed;
+  }
+}
+
+/* Rol Sekmeleri Tasarımı */
+.role-tabs {
+  display: flex;
+  margin-bottom: 25px;
+  background: #f1f3f5;
+  border-radius: 8px;
+  padding: 4px;
+
+  button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7f8c8d;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* Seçili olan (aktif) butonun stili */
+    &.active {
+      background: white;
+      color: #3498db;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+/* En alttaki Giriş/Kayıt geçiş linki */
+.toggle-mode {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #7f8c8d;
+
+  a {
+    color: #3498db;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+  }
+}
