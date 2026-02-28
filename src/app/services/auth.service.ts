@@ -10,13 +10,11 @@ export class AuthService {
   private http = inject(HttpClient);
   private baseUrl = 'http://localhost:8080/api';
 
-  // Giriş Metodu
   login(data: RegisterRequest): Observable<any> {
     const url = `${this.baseUrl}/${data.role}/login`;
     return this.http.post(url, data);
   }
 
-  // Kayıt Metodu
   register(data: RegisterRequest): Observable<any> {
     const url = `${this.baseUrl}/${data.role}/register`;
     return this.http.post(url, data);
