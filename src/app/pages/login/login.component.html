@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="logo-area">
+      <h2>EduCore</h2>
+      <p>{{ isLoginMode ? 'Sisteme Giriş Yapın' : 'Yeni Hesap Oluşturun' }}</p>
+    </div>
+
+    <div class="role-tabs">
+      <button type="button" [class.active]="activeRole === 'student'" (click)="setRole('student')">Öğrenci</button>
+      <button type="button" [class.active]="activeRole === 'teacher'" (click)="setRole('teacher')">Öğretmen</button>
+    </div>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı</label>
+        <input type="text" id="username" formControlName="username" placeholder="Kullanıcı adınızı girin">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Şifre</label>
+        <input type="password" id="password" formControlName="password" placeholder="Şifrenizi girin">
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="loginForm.invalid">
+        {{ isLoginMode ? 'Giriş Yap' : 'Kayıt Ol' }}
+      </button>
+    </form>
+
+    <div class="toggle-mode">
+      @if (isLoginMode) {
+        <p>Hesabınız yok mu? <a (click)="toggleMode()">Kayıt Ol</a></p>
+      } @else {
+        <p>Zaten hesabınız var mı? <a (click)="toggleMode()">Giriş Yap</a></p>
+      }
+    </div>
+
+  </div>
+</div>
