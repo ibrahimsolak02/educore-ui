@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core'; // inject eklendi
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service'; // Servisini buradan çektiğinden emin ol
+import { RegisterRequest } from '../../models/user.model'; // Modeli oluşturmuştuk
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,9 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  // Varsayılan olarak Öğrenci ve Giriş modunda başlatalım
+  // Servisi içeri alıyoruz (Sihirli dokunuş burası)
+  private authService = inject(AuthService);
+
   activeRole: 'student' | 'teacher' = 'student'; 
   isLoginMode: boolean = true; 
 
@@ -18,26 +22,51 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   });
 
-  // Rol değiştirme butonu tetiklendiğinde
   setRole(role: 'student' | 'teacher') {
     this.activeRole = role;
   }
 
-  // Giriş/Kayıt modları arasında geçiş yapıldığında
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
-    this.loginForm.reset(); // Mod değiştiğinde içindeki yazıları temizle
+    this.loginForm.reset(); 
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      // Seçilen role ve moda göre Spring Boot URL'ini dinamik belirliyoruz
-      const url = this.activeRole === 'student'
-        ? (this.isLoginMode ? '/api/student/login' : '/api/student/register')
-        : (this.isLoginMode ? '/api/teacher/login' : '/api/teacher/register');
+    if (this.loginForm.invalid) return;
 
-      console.log(`İstek atılacak Backend URL'i: ${url}`);
-      console.log('Gönderilen Veri:', this.loginForm.value);
+    // Backend'in beklediği formatta veriyi hazırlıyoruz
+    const requestData: RegisterRequest = {
+      username: this.loginForm.value.username!,
+      password: this.loginForm.value.password!,
+      role: this.activeRole
+    };
+
+    if (this.isLoginMode) {
+      // GİRİŞ YAP (Senin yapacağın yerdi, birleştirdim)
+      this.authService.login(requestData).subscribe({
+        next: (res) => {
+          console.log('Giriş okey:', res);
+          alert('Giriş başarılı!');
+        },
+        error: (err) => {
+          console.error('Giriş patladı:', err);
+          alert('Kullanıcı adı veya şifre yanlış!');
+        }
+      });
+    } else {
+      // KAYIT OL (Benim yerim)
+      this.authService.register(requestData).subscribe({
+        next: (res) => {
+          console.log('Kayıt okey:', res);
+          alert('Kayıt başarılı! Giriş yapabilirsin.');
+          this.isLoginMode = true; 
+        },
+        error: (err) => {
+          console.error('Kayıt patladı:', err);
+          // Çift tırnak kullanınca içerideki kesme işareti sorun yaratmaz
+          alert("Kayıt olunamadı, backend'i kontrol et!");
+        }
+      });
     }
   }
 }
