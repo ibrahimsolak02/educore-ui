@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { RegisterRequest } from '../../models/user.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -32,35 +32,33 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-    const requestData: RegisterRequest = {
+    const baseData : User = {
       username: this.loginForm.value.username!,
-      password: this.loginForm.value.password!,
-      role: this.activeRole
+      password: this.loginForm.value.password!
     };
 
     if (this.isLoginMode) {
-      this.authService.login(requestData).subscribe({
+      this.authService.login(baseData).subscribe({
         next: (res) => {
-          console.log('Giriş okey:', res);
+          console.log('Giriş başarılı:', res);
           alert('Giriş başarılı!');
         },
         error: (err) => {
-          console.error('Giriş patladı:', err);
-          alert('Kullanıcı adı veya şifre yanlış!');
+          console.error('Giriş başarısız:', err);
+          alert('Giriş başrısız!');
         }
       });
     } else {
-      this.authService.register(requestData).subscribe({
+      this.authService.register(baseData,this.activeRole).subscribe({
         next: (res) => {
-          console.log('Kayıt okey:', res);
-          alert('Kayıt başarılı! Giriş yapabilirsin.');
-          this.isLoginMode = true; 
+          console.log('Kayıt olundu', res);
+          alert('Kayıt başarılı');
         },
         error: (err) => {
-          console.error('Kayıt patladı:', err);
-          alert("Kayıt olunamadı, backend'i kontrol et!");
+          console.error('Kayıt başarısız', err);
+          alert('Kayıt başarısız')
         }
-      });
+      })
     }
   }
 }
