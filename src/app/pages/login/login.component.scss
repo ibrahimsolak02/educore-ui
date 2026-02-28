@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f7f6; /* Açık gri/mavi temiz bir arka plan */
+  background-color: #f4f7f6;
 }
 
 .login-card {
@@ -23,8 +23,8 @@
     color: #2c3e50;
     margin: 0 0 10px 0;
     font-size: 28px;
-    font-weight: 600; /* Sadece başlık bir tık daha belirgin olsun */
-    letter-spacing: -0.5px; /* Harfleri çok hafif birbirine yaklaştırarak modernleştirir */
+    font-weight: 600;
+    letter-spacing: -0.5px;
   }
 
   p {
@@ -49,13 +49,13 @@
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    box-sizing: border-box; /* Padding'in genişliği bozmasını engeller */
+    box-sizing: border-box;
     font-size: 16px;
     transition: border-color 0.3s;
 
     &:focus {
       outline: none;
-      border-color: #3498db; /* Tıklanınca mavi çerçeve */
+      border-color: #3498db;
     }
   }
 }
@@ -72,20 +72,17 @@
   cursor: pointer;
   transition: all 0.3s ease;
 
-  /* Form doluyken üzerine gelindiğinde */
   &:hover:not(:disabled) {
     background-color: #2980b9; 
   }
 
-  /* Form boşken (pasif durumda) görünecek stil */
   &:disabled {
-    background-color: #3498db; /* Orijinal canlı mavi rengi kalsın */
-    opacity: 0.5; /* Rengi değiştirmek yerine sadece %50 şeffaflaştırıyoruz */
+    background-color: #3498db;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 }
 
-/* Rol Sekmeleri Tasarımı */
 .role-tabs {
   display: flex;
   margin-bottom: 25px;
@@ -105,7 +102,6 @@
     cursor: pointer;
     transition: all 0.3s ease;
 
-    /* Seçili olan (aktif) butonun stili */
     &.active {
       background: white;
       color: #3498db;
@@ -114,7 +110,6 @@
   }
 }
 
-/* En alttaki Giriş/Kayıt geçiş linki */
 .toggle-mode {
   text-align: center;
   margin-top: 20px;

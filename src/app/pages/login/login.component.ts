@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core'; // inject eklendi
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service'; // Servisini buradan çektiğinden emin ol
-import { RegisterRequest } from '../../models/user.model'; // Modeli oluşturmuştuk
+import { AuthService } from '../../services/auth.service';
+import { RegisterRequest } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,6 @@ import { RegisterRequest } from '../../models/user.model'; // Modeli oluşturmu�
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  // Servisi içeri alıyoruz (Sihirli dokunuş burası)
   private authService = inject(AuthService);
 
   activeRole: 'student' | 'teacher' = 'student'; 
@@ -33,8 +32,6 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-
-    // Backend'in beklediği formatta veriyi hazırlıyoruz
     const requestData: RegisterRequest = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
@@ -42,7 +39,6 @@ export class LoginComponent {
     };
 
     if (this.isLoginMode) {
-      // GİRİŞ YAP (Senin yapacağın yerdi, birleştirdim)
       this.authService.login(requestData).subscribe({
         next: (res) => {
           console.log('Giriş okey:', res);
@@ -54,7 +50,6 @@ export class LoginComponent {
         }
       });
     } else {
-      // KAYIT OL (Benim yerim)
       this.authService.register(requestData).subscribe({
         next: (res) => {
           console.log('Kayıt okey:', res);
@@ -63,7 +58,6 @@ export class LoginComponent {
         },
         error: (err) => {
           console.error('Kayıt patladı:', err);
-          // Çift tırnak kullanınca içerideki kesme işareti sorun yaratmaz
           alert("Kayıt olunamadı, backend'i kontrol et!");
         }
       });
