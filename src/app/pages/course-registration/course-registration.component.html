@@ -1,0 +1,24 @@
+<div class="registration-container">
+  <header class="page-header">
+    <h2>Ders Kayıt Paneli</h2>
+    <p>Hoş geldin, <strong>{{ currentUserName }}</strong>. Kaydolmak istediğin dersleri aşağıdan seçebilirsin.</p>
+  </header>
+
+  <div *ngIf="isLoading" class="loading">Dersler yükleniyor...</div>
+
+  <div class="course-grid" *ngIf="!isLoading">
+    <div class="course-card" *ngFor="let course of courses">
+      <div class="course-icon"></div>
+      <div class="course-info">
+        <h3>{{ course.name }}</h3>
+        <span class="instructor">Eğitmen: {{ course.teacherName }}</span> </div>
+      <button class="register-btn" (click)="registerToCourse(course)">
+        Kayıt Ol
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && courses.length === 0">
+    Henüz kayıt olunabilecek bir ders bulunamadı.
+  </div>
+</div>
