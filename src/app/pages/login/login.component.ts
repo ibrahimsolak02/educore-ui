@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { User } from '../../models/user.model';
 })
 export class LoginComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   activeRole: 'student' | 'teacher' = 'student'; 
   isLoginMode: boolean = true; 
@@ -32,7 +34,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-    const baseData : User = {
+
+    const baseData: User = {
       username: this.loginForm.value.username!,
       password: this.loginForm.value.password!
     };
@@ -40,25 +43,30 @@ export class LoginComponent {
     if (this.isLoginMode) {
       this.authService.login(baseData).subscribe({
         next: (res) => {
-          console.log('Giriş başarılı:', res);
-          alert('Giriş başarılı!');
+          const token = res.headers.get('Authorization');
+          if (token) {
+            localStorage.setItem('token', token);
+            localStorage.setItem('username', baseData.username);
+            this.router.navigate(['/course-registration']);
+          }
         },
         error: (err) => {
           console.error('Giriş başarısız:', err);
-          alert('Giriş başrısız!');
+          alert('Giriş başarısız! Lütfen bilgilerinizi kontrol edin.');
         }
       });
     } else {
-      this.authService.register(baseData,this.activeRole).subscribe({
+      this.authService.register(baseData, this.activeRole).subscribe({
         next: (res) => {
           console.log('Kayıt olundu', res);
-          alert('Kayıt başarılı');
+          alert('Kayıt başarılı! Şimdi giriş yapabilirsiniz.');
+          this.isLoginMode = true;
         },
         error: (err) => {
           console.error('Kayıt başarısız', err);
-          alert('Kayıt başarısız')
+          alert('Kayıt başarısız! Bu kullanıcı adı alınmış olabilir.');
         }
-      })
+      });
     }
   }
 }
