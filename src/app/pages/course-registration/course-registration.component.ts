@@ -35,7 +35,16 @@ export class CourseRegistrationComponent implements OnInit {
     });
   }
 
-  registerToCourse(course: Course): void {
-    alert(`${course.name} dersine başarıyla kayıt oldunuz!`);
+  enrollToCourse(courseId: number): void {
+    this.courseService.enrollToCourse(courseId).subscribe({
+    next: (res) => {
+      console.log('Kayıt başarılı, güncel kurs bilgisi:', res);
+      alert("Kursa başarıyla kayıt oldunuz!");
+    },
+    error: (err) => {
+      console.error('Kayıt sırasında hata oluştu:', err);
+      alert("Kayıt yapılamadı. Lütfen tekrar deneyin.");
+    }
+  });
   }
 }

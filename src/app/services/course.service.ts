@@ -13,4 +13,9 @@ export class CourseService {
         const url = `${this.baseUrl}/all`;
         return this.http.get(url);
     }
+
+    enrollToCourse(courseId: number): Observable<any> {
+        const url = `${this.baseUrl}/${courseId}`
+        return this.http.post(url,courseId);
+    }
 }
