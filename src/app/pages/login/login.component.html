@@ -5,11 +5,16 @@
       <p>{{ isLoginMode ? 'Sisteme Giriş Yapın' : 'Yeni Hesap Oluşturun' }}</p>
     </div>
 
+    @if (!isLoginMode) {
     <div class="role-tabs">
-      <button type="button" [class.active]="activeRole === 'student'" (click)="setRole('student')">Öğrenci</button>
-      <button type="button" [class.active]="activeRole === 'teacher'" (click)="setRole('teacher')">Öğretmen</button>
+      <button type="button" [class.active]="activeRole === 'student'" (click)="setRole('student')">
+        Öğrenci
+      </button>
+      <button type="button" [class.active]="activeRole === 'teacher'" (click)="setRole('teacher')">
+        Öğretmen
+      </button>
     </div>
-
+    }
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="username">Kullanıcı Adı</label>
@@ -28,11 +33,10 @@
 
     <div class="toggle-mode">
       @if (isLoginMode) {
-        <p>Hesabınız yok mu? <a (click)="toggleMode()">Kayıt Ol</a></p>
+      <p>Hesabınız yok mu? <a (click)="toggleMode()">Kayıt Ol</a></p>
       } @else {
-        <p>Zaten hesabınız var mı? <a (click)="toggleMode()">Giriş Yap</a></p>
+      <p>Zaten hesabınız var mı? <a (click)="toggleMode()">Giriş Yap</a></p>
       }
     </div>
-
   </div>
 </div>
