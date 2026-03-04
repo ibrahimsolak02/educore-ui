@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { CreateCourse } from "../models/create-course.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,10 @@ export class CourseService {
     enrollToCourse(courseId: number): Observable<any> {
         const url = `${this.baseUrl}/${courseId}`
         return this.http.post(url,courseId);
+    }
+
+    createCourse(createCourse: CreateCourse): Observable<any> {
+        const url = `${this.baseUrl}/create`;
+        return this.http.post(url,createCourse);
     }
 }
