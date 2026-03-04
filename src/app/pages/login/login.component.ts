@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastService = inject(ToastService);
 
   activeRole: string = '';
   isLoginMode: boolean = true;
@@ -57,6 +59,8 @@ export class LoginComponent {
           const roleString = Array.isArray(rawRole) ? rawRole[0] : rawRole;
           const normalizedRole = roleString?.toString().toLowerCase() || '';
 
+          this.toastService.show('Giriş başarılı, yönlendiriliyorsunuz...');
+
           if (normalizedRole.includes('teacher')) {
             this.router.navigate(['/course-create']);
           } else {
@@ -64,15 +68,12 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          console.error('Giriş başarısız:', err);
-          alert('Giriş başarısız! Lütfen bilgilerinizi kontrol edin.');
+          this.toastService.show('Giriş başarısız! Lütfen bilgilerinizi kontrol edin.');
         }
       });
     } else {
       this.authService.register(baseData, this.activeRole).subscribe({
         next: (res) => {
-          console.log('Kayıt olundu', res);
-
           let token = res.headers.get('Authorization');
 
           if (token) {
@@ -85,7 +86,7 @@ export class LoginComponent {
             const role = this.authService.getUserRole(token);
             const normalizedRole = role?.toString().toLowerCase() || '';
 
-            alert('Hesabınız oluşturuldu ve giriş yapıldı!');
+            this.toastService.show('Hesabınız oluşturuldu ve giriş yapıldı!');
 
             if (normalizedRole.includes('teacher')) {
               this.router.navigate(['/course-create']);
@@ -93,14 +94,19 @@ export class LoginComponent {
               this.router.navigate(['/course-registration']);
             }
           } else {
-            alert('Kayıt başarılı! Lütfen şimdi giriş yapın.');
+            this.toastService.show('Kayıt başarılı! Lütfen şimdi giriş yapın.');
             this.isLoginMode = true;
             this.activeRole = '';
           }
         },
         error: (err) => {
-          console.error('Kayıt başarısız', err);
-          alert('Kayıt başarısız! Bu kullanıcı adı alınmış olabilir.');
+          if (err.status === 201 || err.status === 200) {
+            this.toastService.show('Kayıt başarılı! Lütfen şimdi giriş yapın.');
+            this.isLoginMode = true;
+            this.activeRole = '';
+          } else {
+            this.toastService.show(`Kayıt başarısız! Hata kodu: ${err.status}`);
+          }
         }
       });
     }

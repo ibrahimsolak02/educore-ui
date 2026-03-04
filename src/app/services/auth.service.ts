@@ -10,17 +10,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   private http = inject(HttpClient);
   private baseUrl = 'http://localhost:8080';
-  private jwtHelper = new JwtHelperService;
+  private jwtHelper = new JwtHelperService();
 
   login(data: User): Observable<any> {
     const url = `${this.baseUrl}/authenticate`;
-    observe: 'response'
-    return this.http.post(url, data, {observe: 'response'});
+    return this.http.post(url, data, { observe: 'response' });
   }
 
   register(data: User, role: string): Observable<any> {
     const url = `${this.baseUrl}/user/register/${role}`; 
-    return this.http.post(url, data);
+    return this.http.post(url, data, { observe: 'response' });
   }
 
   getUserRole(token: string): string | null {
