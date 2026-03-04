@@ -1,0 +1,43 @@
+<div class="course-container">
+  <div class="form-card">
+    <h2>Yeni Ders Oluştur</h2>
+    <p class="subtitle">Öğrencilerin kayıt olabilmesi için ders detaylarını giriniz.</p>
+
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="courseName">Dersin Adı</label>
+        <input 
+          type="text" 
+          id="courseName" 
+          formControlName="courseName" 
+          placeholder="Örn: Java Spring Boot 101"
+          [class.error]="courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched"
+        />
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="capacity">Kontenjan</label>
+          <input type="number" id="capacity" formControlName="capacity" placeholder="20" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Ders Açıklaması</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          rows="4" 
+          placeholder="Ders içeriği hakkında kısa bilgi..."
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary">İptal</button>
+        <button type="submit" class="btn-primary" [disabled]="courseForm.invalid">
+          Dersi Yayınla
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

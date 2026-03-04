@@ -15,21 +15,21 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  activeRole: 'student' | 'teacher' = 'student'; 
-  isLoginMode: boolean = true; 
+  activeRole: string = '';
+  isLoginMode: boolean = true;
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
 
-  setRole(role: 'student' | 'teacher') {
+  setRole(role: string) {
     this.activeRole = role;
   }
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
-    this.loginForm.reset(); 
+    this.loginForm.reset();
   }
 
   onSubmit() {
@@ -43,10 +43,23 @@ export class LoginComponent {
     if (this.isLoginMode) {
       this.authService.login(baseData).subscribe({
         next: (res) => {
-          const token = res.headers.get('Authorization');
+          let token = res.headers.get('Authorization');
+
           if (token) {
+            if (token.startsWith('Bearer ')) {
+              token = token.substring(7);
+            }
             localStorage.setItem('token', token);
             localStorage.setItem('username', baseData.username);
+          }
+
+          const rawRole = this.authService.getUserRole(token);
+          const roleString = Array.isArray(rawRole) ? rawRole[0] : rawRole;
+          const normalizedRole = roleString?.toString().toLowerCase() || '';
+
+          if (normalizedRole.includes('teacher')) {
+            this.router.navigate(['/course-create']);
+          } else {
             this.router.navigate(['/course-registration']);
           }
         },
@@ -59,8 +72,31 @@ export class LoginComponent {
       this.authService.register(baseData, this.activeRole).subscribe({
         next: (res) => {
           console.log('Kayıt olundu', res);
-          alert('Kayıt başarılı! Şimdi giriş yapabilirsiniz.');
-          this.isLoginMode = true;
+
+          let token = res.headers.get('Authorization');
+
+          if (token) {
+            if (token.startsWith('Bearer ')) {
+              token = token.substring(7);
+            }
+            localStorage.setItem('token', token);
+            localStorage.setItem('username', baseData.username);
+
+            const role = this.authService.getUserRole(token);
+            const normalizedRole = role?.toString().toLowerCase() || '';
+
+            alert('Hesabınız oluşturuldu ve giriş yapıldı!');
+
+            if (normalizedRole.includes('teacher')) {
+              this.router.navigate(['/course-create']);
+            } else {
+              this.router.navigate(['/course-registration']);
+            }
+          } else {
+            alert('Kayıt başarılı! Lütfen şimdi giriş yapın.');
+            this.isLoginMode = true;
+            this.activeRole = '';
+          }
         },
         error: (err) => {
           console.error('Kayıt başarısız', err);

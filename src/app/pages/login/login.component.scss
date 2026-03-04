@@ -129,3 +129,15 @@
     }
   }
 }
+
+.role-tabs button {
+  background-color: #f0f0f0;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.role-tabs button.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}

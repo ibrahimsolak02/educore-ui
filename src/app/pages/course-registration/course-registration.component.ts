@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { CourseService } from '../../services/course.service';
-import { Course } from '../../models/course.model';
+import { CourseRegister } from '../../models/course-register.model';
 
 @Component({
   selector: 'app-course-registration',
@@ -13,9 +13,9 @@ import { Course } from '../../models/course.model';
 export class CourseRegistrationComponent implements OnInit {
   private courseService = inject(CourseService);
 
-  courses: Course[] = [];
+  courses: CourseRegister[] = [];
   isLoading: boolean = true;
-  currentUserName: String = '';
+  currentUserName: string = '';
 
   ngOnInit(): void {
     this.loadCourses();
@@ -37,14 +37,15 @@ export class CourseRegistrationComponent implements OnInit {
 
   enrollToCourse(courseId: number): void {
     this.courseService.enrollToCourse(courseId).subscribe({
-    next: (res) => {
-      console.log('Kayıt başarılı, güncel kurs bilgisi:', res);
-      alert("Kursa başarıyla kayıt oldunuz!");
-    },
-    error: (err) => {
-      console.error('Kayıt sırasında hata oluştu:', err);
-      alert("Kayıt yapılamadı. Lütfen tekrar deneyin.");
-    }
-  });
+      next: (res) => {
+        console.log('Kayıt başarılı, güncel kurs bilgisi:', res);
+        alert("Kursa başarıyla kayıt oldunuz!");
+        this.loadCourses();
+      },
+      error: (err) => {
+        console.error('Kayıt sırasında hata oluştu:', err);
+        alert("Kayıt yapılamadı. Lütfen tekrar deneyin.");
+      }
+    });
   }
 }

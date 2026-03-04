@@ -11,7 +11,9 @@
       <div class="course-icon"></div>
       <div class="course-info">
         <h3>{{ course.name }}</h3>
-        <span class="instructor">Eğitmen: {{ course.teacherName }}</span> </div>
+        <span class="instructor">Eğitmen: {{ course.teacherName }}</span>
+        <p class="description">{{ course.description }}</p>
+      </div>
       <button class="register-btn" (click)="enrollToCourse(course.id)">
         Kayıt Ol
       </button>
