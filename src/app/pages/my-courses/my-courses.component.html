@@ -1,30 +1,31 @@
 <div class="courses-page-container">
   <div class="page-header">
-    <h2>Ders Kayıt Paneli</h2>
-    <p>Hoş geldin, <strong>{{ currentUserName }}</strong>. Kaydolmak istediğin dersleri aşağıdan seçebilirsin.</p>
+    <h2>Kayıtlı Derslerim</h2>
+    <p>Aktif olarak kayıtlı olduğunuz tüm dersleri buradan takip edebilirsiniz.</p>
   </div>
 
   @if (isLoading) {
     <div class="loading-state">
       <div class="spinner"></div>
-      <p>Dersler yükleniyor, lütfen bekleyin...</p>
+      <p>Dersleriniz yükleniyor, lütfen bekleyin...</p>
     </div>
   } 
   
-  @else if (courses.length === 0) {
+  @else if (myCourses.length === 0) {
     <div class="empty-state">
-      <div class="icon">🔍</div>
-      <h3>Şu anda kayıt olunabilecek bir ders bulunmuyor.</h3>
-      <p>Lütfen daha sonra tekrar kontrol edin.</p>
+      <div class="icon">📚</div>
+      <h3>Henüz hiçbir derse kayıtlı değilsiniz.</h3>
+      <p>Yeni yetenekler kazanmak için hemen ders kaydı yapın!</p>
+      <a routerLink="/course-registration" class="btn-primary">Derslere Göz At</a>
     </div>
   } 
   
   @else {
     <div class="courses-grid">
-      @for (course of courses; track course.id) {
+      @for (course of myCourses; track course.id) {
         <div class="course-card">
           <div class="card-body">
-            <h3 class="course-title">{{ course.name }}</h3>
+            <h3 class="course-title">{{ course.name || 'Ders Adı' }}</h3>
             <p class="course-desc">{{ course.description || 'Bu ders hakkında henüz bir açıklama girilmemiş.' }}</p>
           </div>
           <div class="card-footer">
@@ -32,10 +33,6 @@
               <span class="label">Eğitmen:</span>
               <span class="value">{{ course.teacherName || 'Belirtilmedi' }}</span>
             </div>
-            
-            <button class="btn-register" (click)="enrollToCourse(course.id)">
-              Kayıt Ol
-            </button>
           </div>
         </div>
       }

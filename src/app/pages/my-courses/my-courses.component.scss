@@ -58,6 +58,21 @@
     color: #7f8c8d;
     margin-bottom: 2rem;
   }
+
+  .btn-primary {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
 }
 
 .courses-grid {
@@ -104,14 +119,11 @@
       font-size: 1.25rem;
       margin-bottom: 0.8rem;
     }
+
     .course-desc {
       color: #7f8c8d;
       font-size: 0.95rem;
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
   }
 
@@ -135,23 +147,13 @@
       }
     }
 
-    .btn-register {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
+    .credit-badge {
+      background-color: #e8f4f8;
+      color: #3498db;
+      padding: 0.4rem 0.8rem;
       border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.1s;
-
-      &:hover {
-        background-color: #2980b9;
-      }
-      
-      &:active {
-        transform: scale(0.95);
-      }
+      font-size: 0.85rem;
+      font-weight: 700;
     }
   }
 }

@@ -1,0 +1,31 @@
+<div class="layout-container">
+  <nav class="top-navbar">
+    <div class="logo">EduCore</div>
+    
+    <ul class="nav-links">
+      @if (userRole.includes('teacher')) {
+        <li>
+          <a routerLink="/course-create" routerLinkActive="active">Ders Oluştur</a>
+        </li>
+      }
+
+      @if (userRole.includes('student')) {
+        <li>
+          <a routerLink="/course-registration" routerLinkActive="active">Tüm Dersler</a>
+        </li>
+        <li>
+          <a routerLink="/my-courses" routerLinkActive="active">Kayıtlı Derslerim</a>
+        </li>
+      }
+    </ul>
+
+    <div class="user-actions">
+      <span class="welcome-text">Merhaba, {{ username }}</span>
+      <button class="btn-logout" (click)="logout()">Çıkış Yap</button>
+    </div>
+  </nav>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>
