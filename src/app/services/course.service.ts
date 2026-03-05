@@ -24,4 +24,9 @@ export class CourseService {
         const url = `${this.baseUrl}/create`;
         return this.http.post(url,createCourse);
     }
+
+    getEnrolledCourses(): Observable<any> {
+        const url = `${this.baseUrl}/my-courses`;
+        return this.http.get(url);
+    }
 }

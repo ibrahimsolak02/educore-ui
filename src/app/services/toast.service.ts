@@ -12,6 +12,6 @@ export class ToastService {
     this.toastSubject.next(message);
     setTimeout(() => {
       this.toastSubject.next('');
-    }, 5000);
+    }, 2000);
   }
 }
