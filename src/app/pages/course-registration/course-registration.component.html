@@ -1,26 +1,44 @@
-<div class="registration-container">
-  <header class="page-header">
+<div class="courses-page-container">
+  <div class="page-header">
     <h2>Ders Kayıt Paneli</h2>
     <p>Hoş geldin, <strong>{{ currentUserName }}</strong>. Kaydolmak istediğin dersleri aşağıdan seçebilirsin.</p>
-  </header>
+  </div>
 
-  <div *ngIf="isLoading" class="loading">Dersler yükleniyor...</div>
-
-  <div class="course-grid" *ngIf="!isLoading">
-    <div class="course-card" *ngFor="let course of courses">
-      <div class="course-icon"></div>
-      <div class="course-info">
-        <h3>{{ course.name }}</h3>
-        <span class="instructor">Eğitmen: {{ course.teacherName }}</span>
-        <p class="description">{{ course.description }}</p>
-      </div>
-      <button class="register-btn" (click)="enrollToCourse(course.id)">
-        Kayıt Ol
-      </button>
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Dersler yükleniyor, lütfen bekleyin...</p>
     </div>
-  </div>
-
-  <div *ngIf="!isLoading && courses.length === 0">
-    Henüz kayıt olunabilecek bir ders bulunamadı.
-  </div>
+  } 
+  
+  @else if (courses.length === 0) {
+    <div class="empty-state">
+      <div class="icon">🔍</div>
+      <h3>Şu anda kayıt olunabilecek bir ders bulunmuyor.</h3>
+      <p>Lütfen daha sonra tekrar kontrol edin.</p>
+    </div>
+  } 
+  
+  @else {
+    <div class="courses-grid">
+      @for (course of courses; track course.id) {
+        <div class="course-card">
+          <div class="card-body">
+            <h3 class="course-title">{{ course.name }}</h3>
+            <p class="course-desc">{{ course.description || 'Bu ders hakkında henüz bir açıklama girilmemiş.' }}</p>
+          </div>
+          <div class="card-footer">
+            <div class="teacher-info">
+              <span class="label">Eğitmen:</span>
+              <span class="value">{{ course.teacherName || 'Belirtilmedi' }}</span>
+            </div>
+            
+            <button class="btn-register" (click)="enrollToCourse(course.id)">
+              Kayıt Ol
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
 </div>

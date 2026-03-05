@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { CourseService } from '../../services/course.service';
 import { CourseRegister } from '../../models/course-register.model';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-course-registration',
@@ -12,6 +13,7 @@ import { CourseRegister } from '../../models/course-register.model';
 })
 export class CourseRegistrationComponent implements OnInit {
   private courseService = inject(CourseService);
+  private toastService = inject(ToastService);
 
   courses: CourseRegister[] = [];
   isLoading: boolean = true;
@@ -30,6 +32,7 @@ export class CourseRegistrationComponent implements OnInit {
       },
       error: (err) => {
         console.error('Hata:', err);
+        this.toastService.show('Dersler yüklenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin.');
         this.isLoading = false;
       }
     });
