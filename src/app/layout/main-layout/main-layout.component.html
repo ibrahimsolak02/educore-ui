@@ -5,16 +5,27 @@
     <ul class="nav-links">
       @if (userRole.includes('teacher')) {
         <li>
-          <a routerLink="/course-create" routerLinkActive="active">Ders Oluştur</a>
+          <a routerLink="/course-create" routerLinkActive="active">
+            Ders Oluştur
+          </a>
+        </li>
+        <li>
+          <a routerLink="/grade-submission" routerLinkActive="active">
+            Not Girişi
+          </a>
         </li>
       }
 
       @if (userRole.includes('student')) {
         <li>
-          <a routerLink="/course-registration" routerLinkActive="active">Tüm Dersler</a>
+          <a routerLink="/course-registration" routerLinkActive="active">
+            Tüm Dersler
+          </a>
         </li>
         <li>
-          <a routerLink="/my-courses" routerLinkActive="active">Kayıtlı Derslerim</a>
+          <a routerLink="/my-courses" routerLinkActive="active">
+            Kayıtlı Derslerim
+          </a>
         </li>
       }
     </ul>
