@@ -1,0 +1,56 @@
+<div class="grade-entry-container">
+    <div class="header-section">
+        <h1>Not Giriş Sistemi</h1>
+        <p>Sistemdeki tüm öğrenci-ders eşleşmeleri için harf notlarını buradan tanımlayabilirsiniz.</p>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th>Öğrenci Bilgisi</th>
+                    <th>Ders Bilgisi</th>
+                    <th>Harf Notu Girişi</th>
+                    <th class="text-center">Aksiyon</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (enrollment of enrollments; track enrollment.studentId + '-' + enrollment.courseId) {
+                <tr class="grade-row">
+                    <td>
+                        <div class="student-info">
+                            <span class="id">#{{ enrollment.studentId }}</span>
+                            <span class="name">{{ enrollment.studentName }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="course-info">
+                            <span class="c-id">{{ enrollment.courseId }}</span>
+                            <span class="c-name">{{ enrollment.courseName }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="letter-select" [(ngModel)]="enrollment.grade">
+                            <option value="" disabled selected>Not Seçiniz</option>
+                            @for (grade of letterGrades; track grade) {
+                            <option [value]="grade">{{ grade }}</option>
+                            }
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <button class="btn-save-row" (click)="saveRow(enrollment)">Yükle</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="4" class="text-center">Görüntülenecek kayıt bulunamadı.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="action-footer">
+        <button class="btn-bulk-save" (click)="saveBulk(enrollments)">Tüm Listeyi Sisteme Gönder</button>
+    </div>
+</div>
