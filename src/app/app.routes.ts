@@ -6,6 +6,7 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { authGuard } from './guards/auth.guard';
 import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
 import { GradeSubmissionComponent } from './pages/grade-submission/grade-submission.component';
+import { MyGradesComponent } from './pages/my-grades/my-grades.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -37,6 +38,12 @@ export const routes: Routes = [
         component: GradeSubmissionComponent,
         canActivate: [authGuard],
         data: { roles: ['teacher'] }
+      },
+      {
+        path: 'my-grades',
+        component: MyGradesComponent,
+        canActivate: [authGuard],
+        data: { roles: ['student']}
       }
     ]
   },

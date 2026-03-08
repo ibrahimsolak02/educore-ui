@@ -1,0 +1,136 @@
+$text-main: #1f2937;
+$text-muted: #6b7280;
+$bg-main: #f9fafb;
+$bg-card: #ffffff;
+$border-color: #e5e7eb;
+$success-bg: #dcfce7;
+$success-text: #166534;
+$danger-bg: #fee2e2;
+$danger-text: #991b1b;
+$warning-bg: #fef3c7;
+$warning-text: #92400e;
+
+.grade-view-container {
+  background-color: $bg-card;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  max-width: 800px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: $text-main;
+
+  .header-section {
+    margin-bottom: 24px;
+    border-bottom: 2px solid $bg-main;
+    padding-bottom: 16px;
+
+    .header-titles {
+      h1 {
+        margin: 0 0 8px 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        color: $text-muted;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+
+      th {
+        background-color: $bg-main;
+        padding: 14px 16px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $text-muted;
+        border-bottom: 1px solid $border-color;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      td {
+        padding: 16px;
+        border-bottom: 1px solid $border-color;
+        vertical-align: middle;
+      }
+
+      .grade-row {
+        &:hover {
+          background-color: $bg-main;
+        }
+
+        &:last-child td {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .course-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .c-id {
+      font-size: 0.85rem;
+      color: $text-muted;
+      font-family: monospace;
+    }
+
+    .c-name {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+  }
+
+  .grade-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .grade-A, .grade-B {
+    background-color: $success-bg;
+    color: $success-text;
+  }
+
+  .grade-C, .grade-D {
+    background-color: $warning-bg;
+    color: $warning-text;
+  }
+
+  .grade-F {
+    background-color: $danger-bg;
+    color: $danger-text;
+  }
+
+  .grade-default {
+    background-color: $bg-main;
+    color: $text-muted;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.empty-state {
+  padding: 32px !important;
+  color: $text-muted !important;
+  font-style: italic;
+}
