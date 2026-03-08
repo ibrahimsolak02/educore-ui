@@ -2,9 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { CreateCourse } from "../models/create-course.model";
+import { GradeSubmission } from "../models/grade-submission.model";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CourseService {
     private http = inject(HttpClient);
@@ -17,16 +18,21 @@ export class CourseService {
 
     enrollToCourse(courseId: number): Observable<any> {
         const url = `${this.baseUrl}/${courseId}`
-        return this.http.post(url,courseId);
+        return this.http.post(url, courseId);
     }
 
     createCourse(createCourse: CreateCourse): Observable<any> {
         const url = `${this.baseUrl}/create`;
-        return this.http.post(url,createCourse);
+        return this.http.post(url, createCourse);
     }
 
     getEnrolledCourses(): Observable<any> {
         const url = `${this.baseUrl}/my-courses`;
+        return this.http.get(url);
+    }
+
+    getAllEnrollments(): Observable<any> {
+        const url = `${this.baseUrl}/enrollments/all-enrollments`;
         return this.http.get(url);
     }
 }
