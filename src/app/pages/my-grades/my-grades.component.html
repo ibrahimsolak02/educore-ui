@@ -1,0 +1,40 @@
+<div class="grade-view-container">
+    <div class="header-section">
+        <div class="header-titles">
+            <h1>Notlarım</h1>
+            <p>Kayıtlı olduğunuz dersleri ve aldığınız harf notlarını aşağıdan inceleyebilirsiniz.</p>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th>Ders Bilgisi</th>
+                    <th class="text-center">Harf Notu</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (record of gradeRecords; track record.courseId) {
+                <tr class="grade-row">
+                    <td>
+                        <div class="course-info">
+                            <span class="c-id">{{ record.courseId }}</span>
+                            <span class="c-name">{{ record.courseName }}</span>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span class="grade-badge" [ngClass]="'grade-' + (record.grade?.charAt(0) || 'default')">
+                            {{ record.grade || 'Açıklanmadı' }}
+                        </span>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="2" class="text-center empty-state">Sistemde kayıtlı ders notunuz bulunmamaktadır.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
