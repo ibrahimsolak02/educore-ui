@@ -24,21 +24,37 @@
   .nav-links {
     list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     margin: 0;
     padding: 0;
+    height: 100%;
+
+    li {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
 
     a {
       color: #ecf0f1;
       text-decoration: none;
       font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background 0.3s;
+      padding: 0 1rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
 
-      &:hover, &.active {
-        background-color: #34495e;
+      &:hover {
         color: #3498db;
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      &.active {
+        color: #3498db;
+        border-bottom-color: #3498db;
+        font-weight: bold;
       }
     }
   }
@@ -48,17 +64,22 @@
     align-items: center;
     gap: 1.5rem;
 
+    .welcome-text {
+      color: #ecf0f1;
+    }
+
     .btn-logout {
-      background-color: #e74c3c;
+      background-color: #2ecc71;
       color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+      transition: background 0.3s;
 
       &:hover {
-        background-color: #c0392b;
+        background-color: #27ae60;
       }
     }
   }

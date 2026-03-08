@@ -22,12 +22,12 @@ export class CourseCreateComponent {
 
   onSubmit() {
     if (this.courseForm.valid) {
-      const formVerisi = this.courseForm.getRawValue(); 
+      const formData = this.courseForm.getRawValue(); 
 
       const newCourse: CreateCourse = {
-        name: formVerisi.courseName, 
-        capacity: formVerisi.capacity!,
-        description: formVerisi.description
+        name: formData.courseName, 
+        capacity: formData.capacity!,
+        description: formData.description
       };
 
       this.courseService.createCourse(newCourse).subscribe({
