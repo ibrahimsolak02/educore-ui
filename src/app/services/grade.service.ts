@@ -18,7 +18,12 @@ export class GradeService {
 
     submitAllGrades(gradeList: GradeSubmission[]): Observable<any> {
         const url = `${this.baseUrl}/submit-all`;
-        return this.http.post(url, gradeList)
+        return this.http.post(url, gradeList);
+    }
+
+    getmyGrades(): Observable<any> {
+        const url = `${this.baseUrl}/get-my-grades`;
+        return this.http.get(url);
     }
 
 }
